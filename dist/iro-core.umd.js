@@ -1039,10 +1039,6 @@
     [[0, 'rgba(0,0,0,0)'], [100, '#000']]];
   }
 
-  // Keep track of html <base> elements for resolveSvgUrl
-  // getElementsByTagName returns a live HTMLCollection, which stays in sync with the DOM tree
-  // So it only needs to be called once
-  var BASE_ELEMENTS = document.getElementsByTagName('base');
   /**
    * @desc Resolve an SVG reference URL
    * This is required to work around how Safari and iOS webviews handle gradient URLS under certain conditions
@@ -1055,9 +1051,12 @@
    * https://github.com/jaames/iro.js/pull/89
    * @props url - SVG reference URL
    */
-
   function resolveSvgUrl(url) {
-    // Sniff useragent string to check if the user is running Safari
+    // Keep track of html <base> elements for resolveSvgUrl
+    // getElementsByTagName returns a live HTMLCollection, which stays in sync with the DOM tree
+    // So it only needs to be called once
+    var BASE_ELEMENTS = document.getElementsByTagName('base'); // Sniff useragent string to check if the user is running Safari
+
     var ua = window.navigator.userAgent;
     var isSafari = /^((?!chrome|android).)*safari/i.test(ua);
     var isIos = /iPhone|iPod|iPad/i.test(ua);
