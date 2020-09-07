@@ -1,10 +1,5 @@
 import { IroColorPickerOptions } from './colorPickerOptions';
 
-// Keep track of html <base> elements for resolveSvgUrl
-// getElementsByTagName returns a live HTMLCollection, which stays in sync with the DOM tree
-// So it only needs to be called once
-const BASE_ELEMENTS = document.getElementsByTagName('base');
-
 /**
  * @desc Resolve an SVG reference URL
  * This is required to work around how Safari and iOS webviews handle gradient URLS under certain conditions
@@ -18,6 +13,10 @@ const BASE_ELEMENTS = document.getElementsByTagName('base');
  * @props url - SVG reference URL
  */
 export function resolveSvgUrl(url: string) {
+  // Keep track of html <base> elements for resolveSvgUrl
+  // getElementsByTagName returns a live HTMLCollection, which stays in sync with the DOM tree
+  // So it only needs to be called once
+  const BASE_ELEMENTS = document.getElementsByTagName('base')
   // Sniff useragent string to check if the user is running Safari
   const ua = window.navigator.userAgent;
   const isSafari = /^((?!chrome|android).)*safari/i.test(ua);
